@@ -1,0 +1,31 @@
+#
+# properties from the original one system image
+#
+rild.libpath=/system/lib/libril-qc-1.so
+rild.libargs=-d /dev/smd0
+persist.rild.nitz_plmn=
+persist.rild.nitz_long_ons_0=
+persist.rild.nitz_long_ons_1=
+persist.rild.nitz_long_ons_2=
+persist.rild.nitz_long_ons_3=
+persist.rild.nitz_short_ons_0=
+persist.rild.nitz_short_ons_1=
+persist.rild.nitz_short_ons_2=
+persist.rild.nitz_short_ons_3=
+DEVICE_PROVISIONED=1
+
+## Density of the wqvga screen
+ro.sf.lcd_density=120
+
+## WiFi interface...
+#
+wifi.interface=wlan0
+
+# Default network type
+#
+# 0 => WCDMA Preferred.
+ro.telephony.default_network = 0
+
+## Old RIL doesn't replay call rings
+ro.telephony.call_ring.multiple=false
+ro.telephony.call_ring.delay=5000
