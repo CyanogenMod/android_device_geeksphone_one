@@ -9,7 +9,7 @@ LOCAL_PATH := $(call my-dir)
 
 ## Use prebuilt if kernel source is unavailable
 #ifeq ($(TARGET_PREBUILT_KERNEL),)
-	TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/adq-kernel
+	TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/adq-kernel
 #endif
 
 file := $(INSTALLED_KERNEL_TARGET)
