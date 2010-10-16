@@ -36,7 +36,7 @@
     {RIL_REQUEST_SIGNAL_STRENGTH, dispatchVoid, responseRilSignalStrength},
     {RIL_REQUEST_REGISTRATION_STATE, dispatchVoid, responseStrings},
     {RIL_REQUEST_GPRS_REGISTRATION_STATE, dispatchVoid, responseGprsState},
-    {RIL_REQUEST_OPERATOR, dispatchVoid, responseStrings},
+    {RIL_REQUEST_OPERATOR, dispatchVoid, responseOperator},
     {RIL_REQUEST_RADIO_POWER, dispatchInts, responseVoid},
     {RIL_REQUEST_DTMF, dispatchString, responseVoid},
     {RIL_REQUEST_SEND_SMS, dispatchStrings, responseSMS},

@@ -234,6 +234,7 @@ static int responseCallRing(Parcel &p, void *response, size_t responselen);
 static int responseCdmaSignalInfoRecord(Parcel &p,void *response, size_t responselen);
 static int responseCdmaCallWaiting(Parcel &p,void *response, size_t responselen);
 static int responseGprsState(Parcel &p, void *response, size_t responselen);
+static int responseOperator(Parcel &p, void *response, size_t responselen);
 static int responseBaseband(Parcel &p, void *response, size_t responselen);
 
 extern "C" const char * requestToString(int request);
@@ -735,6 +736,10 @@ dispatchSIM_IO (Parcel &p, RequestInfo *pRI) {
     simIO.command = (int)t;
 
     status = p.readInt32(&t);
+	if ((int) t == 0x6F46) {
+		/* Make EF_SPN throw an error to always show PLMN */
+		t = 0xFFFF;
+	}
     simIO.fileid = (int)t;
 
     // From what I can tell, any kind of path will cause the call to fail
@@ -2398,6 +2403,63 @@ static int responseGprsState(Parcel &p, void *response, size_t responselen) {
 				break;
 		}
 	    }
+        }
+        removeLastChar;
+        closeResponse;
+    }
+    LOGV("RIL DEBUG: %s X",__func__);
+    return 0;
+}
+
+static int responseOperator(Parcel &p, void *response, size_t responselen) {
+    int numStrings;
+    LOGV("RIL DEBUG: %s E",__func__);
+
+    if (response == NULL && responselen != 0) {
+        LOGE("invalid response: NULL");
+        return RIL_ERRNO_INVALID_RESPONSE;
+    }
+    if (responselen % sizeof(char *) != 0) {
+        LOGE("invalid response length %d expected multiple of %d\n",
+            (int)responselen, (int)sizeof(char *));
+        return RIL_ERRNO_INVALID_RESPONSE;
+    }
+
+    if (response == NULL) {
+        p.writeInt32 (0);
+    } else {
+        char **p_cur = (char **) response;
+
+        numStrings = responselen / sizeof(char *);
+        p.writeInt32 (numStrings);
+
+        /* each string*/
+        startResponse;
+	    if (numStrings != 3) {
+				p.writeInt32 (0);
+	    } else {
+			if (p_cur[1] != NULL && strlen(p_cur[1])) {
+				/* SPN takes precedence */
+				   appendPrintBuf("%s%s,", printBuf, (char*)p_cur[1]);
+			       writeStringToParcel (p, p_cur[1]);
+				   appendPrintBuf("%s%s,", printBuf, (char*)p_cur[1]);
+			       writeStringToParcel (p, p_cur[1]);
+				   appendPrintBuf("%s%s,", printBuf, (char*)p_cur[2]);
+			       writeStringToParcel (p, p_cur[2]);
+			} else if (p_cur[0] != NULL && strlen(p_cur[0])) {
+				/* PLMN goes in if SPN is unavailable */
+				   appendPrintBuf("%s%s,", printBuf, (char*)p_cur[0]);
+			       writeStringToParcel (p, p_cur[0]);
+				   appendPrintBuf("%s%s,", printBuf, (char*)p_cur[0]);
+			       writeStringToParcel (p, p_cur[0]);
+				   appendPrintBuf("%s%s,", printBuf, (char*)p_cur[2]);
+			       writeStringToParcel (p, p_cur[2]);
+			} else {
+				for (int i = 0 ; i < numStrings ; i++) {
+				   appendPrintBuf("%s%s,", printBuf, (char*)p_cur[i]);
+			       writeStringToParcel (p, p_cur[i]);
+			    }
+			}
         }
         removeLastChar;
         closeResponse;
