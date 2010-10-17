@@ -35,6 +35,10 @@ PRODUCT_LOCALES := mdpi
 PRODUCT_PROPERTY_OVERRIDES += \
 	keyguard.no_require_sim=true
 
+# Enable RingerSwitch
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.config.ringerswitch=1
+
 # The user-visible product name
 PRODUCT_MODEL := Geeksphone ONE
 
