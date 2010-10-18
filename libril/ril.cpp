@@ -549,6 +549,13 @@ dispatchInts (Parcel &p, RequestInfo *pRI) {
    s_callbacks.onRequest(pRI->pCI->requestNumber, const_cast<int *>(pInts),
                        datalen, pRI);
 
+   /* Yet another ugly hack: with what appears to be most SIM cards (2 
+    * out of my 3), libril-qc only wakes up the SIM after getting a request
+    * to set a profile (even if it throws an error) */
+   if (pRI->pCI->requestNumber == RIL_REQUEST_RADIO_POWER && pInts[0] == 1) {
+       issueLocalRequest(RIL_REQUEST_STK_SET_PROFILE, strdup("supported"), 9);
+   }
+
 #ifdef MEMSET_FREED
     memset(pInts, 0, datalen);
 #endif
