@@ -318,10 +318,19 @@ void QualcommCameraHardware::initDefaultParameters()
     p.set("whitebalance", "auto");
     p.set("focus-mode", "auto");
 
-    p.set("saturation", "3");
-    //p.set("contrast", "3");
-    p.set("sharpness", "3");
-    p.set("luma-adaptation", "1");
+    p.set("saturation-def", "3");
+    p.set("saturation-max", "5");
+    p.set("saturation", p.get("saturation-def"));
+    p.set("contrast-def", "3");
+    p.set("contrast-max", "5");
+    p.set("contrast", p.get("contrast-def"));
+    p.set("sharpness-def", "3");
+    p.set("sharpness-max", "5");
+    p.set("sharpness", p.get("sharpness-def"));
+    p.set("exposure-compensation", "4");
+    p.set("max-exposure-compensation", "10");
+    p.set("min-exposure-compensation", "0");
+    p.set("exposure-compensation-step", "2");
     p.set("iso", "auto");
 
     p.set("zoom", "0");
@@ -353,7 +362,7 @@ void QualcommCameraHardware::initDefaultParameters()
     p.set("auto-exposure-values", autoexposure_values);
 
     p.set("max-saturation", "5");
-    //p.set("max-contrast", "5");
+    p.set("max-contrast", "5");
     p.set("max-sharpness", "5");
 
     p.set("zoom-supported", "true");
@@ -1453,7 +1462,6 @@ status_t QualcommCameraHardware::setParameters(
 
 
     setZoom();
-    // FIXME: set nightshot and luma adaptatiom
     //setRotation();
    
     setAntibanding();
@@ -1565,7 +1573,7 @@ void QualcommCameraHardware::receivePreviewFrame(struct msm_frame_t *frame)
         (ssize_t)frame->buffer - (ssize_t)mPreviewHeap->mHeap->base();
     offset /= mPreviewFrameSize;
 
-    LOGV("Frame offset %d from %d  and size %d\n", offset,(ssize_t)frame->buffer,mPreviewFrameSize);
+    //LOGV("Frame offset %d from %d  and size %d\n", offset,(ssize_t)frame->buffer,mPreviewFrameSize);
 
     mInPreviewCallback = true;
     if (mMsgEnabled & CAMERA_MSG_PREVIEW_FRAME)
@@ -1893,18 +1901,15 @@ void QualcommCameraHardware::setSharpness()
 
 void QualcommCameraHardware::setBrightness()
 {
-    int32_t value = atoi(mParameters.get("luma-adaptation"));
+    int32_t value = atoi(mParameters.get("exposure-compensation"));
 
     if (value == mCurBrightness) {
-	return;
+        return;
     }
 
     mCurBrightness = value;
 
     if (value != NOT_FOUND) {
-	value*=2;
-	value-=1;
-	if (value < 0) value = 0;
         native_set_parm(CAMERA_SET_PARM_BRIGHTNESS, sizeof(value), (void *)&value);
     }    
 }
