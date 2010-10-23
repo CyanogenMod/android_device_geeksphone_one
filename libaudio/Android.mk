@@ -1,7 +1,4 @@
 
-## Ugly hack: override default libaudio
-MODULE.TARGET.SHARED_LIBRARIES.libaudio := 
-
 ifneq ($(BUILD_TINY_ANDROID),true)
 
 LOCAL_PATH := $(call my-dir)
