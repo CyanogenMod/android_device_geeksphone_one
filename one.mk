@@ -22,6 +22,10 @@ PRODUCT_BRAND := Geeksphone
 
 # This is the list of apps to include in the build
 PRODUCT_PACKAGES := \
+	Gallery
+
+# This is the list of libraries to include in the build
+PRODUCT_PACKAGES += \
     sensors.adq \
     lights.adq \
     libRS \
@@ -31,9 +35,6 @@ TINY_TOOLBOX:=true
 
 # This is the list of locales included in AOSP builds
 PRODUCT_LOCALES := mdpi
-
-PRODUCT_PROPERTY_OVERRIDES += \
-	keyguard.no_require_sim=true
 
 # Enable RingerSwitch
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -60,8 +61,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Configuration
 #
 PRODUCT_COPY_FILES += \
-	device/geeksphone/one/gps.conf:system/etc/gps.conf \
-	device/geeksphone/one/apns-conf.xml:system/etc/apns-conf.xml \
 	device/geeksphone/one/spn-conf.xml:system/etc/spn-conf.xml \
 	device/geeksphone/one/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
 	device/geeksphone/one/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
@@ -86,3 +85,4 @@ PRODUCT_COPY_FILES += \
 
 $(call inherit-product, build/target/product/full.mk)
 PRODUCT_NAME := geeksphone_one
+
