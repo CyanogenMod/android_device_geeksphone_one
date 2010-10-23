@@ -1,0 +1,4 @@
+<resources>
+	<bool name="softwareGLOnly">true</bool>
+</resources>
+
