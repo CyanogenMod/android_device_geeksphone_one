@@ -195,6 +195,7 @@ static size_t s_lastNITZTimeDataSize;
     static char printBuf[PRINTBUF_SIZE];
 #endif
 
+static int profileSet = 0;
 /*******************************************************************/
 
 static void dispatchVoid (Parcel& p, RequestInfo *pRI);
@@ -552,8 +553,10 @@ dispatchInts (Parcel &p, RequestInfo *pRI) {
    /* Yet another ugly hack: with what appears to be most SIM cards (2 
     * out of my 3), libril-qc only wakes up the SIM after getting a request
     * to set a profile (even if it throws an error) */
-   if (pRI->pCI->requestNumber == RIL_REQUEST_RADIO_POWER && pInts[0] == 1) {
-       issueLocalRequest(RIL_REQUEST_STK_SET_PROFILE, strdup("supported"), 9);
+   if (!profileSet && pRI->pCI->requestNumber == RIL_REQUEST_RADIO_POWER 
+            && pInts[0] == 1) {
+       profileSet = 1;
+       issueLocalRequest(RIL_REQUEST_STK_SET_PROFILE, strdup("dummy"), 5);
    }
 
 #ifdef MEMSET_FREED
