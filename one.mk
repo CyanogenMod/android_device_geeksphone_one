@@ -61,7 +61,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Configuration
 #
 PRODUCT_COPY_FILES += \
-	device/geeksphone/one/spn-conf.xml:system/etc/spn-conf.xml \
 	device/geeksphone/one/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
 	device/geeksphone/one/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
 	frameworks/base/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
