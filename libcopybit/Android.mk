@@ -13,6 +13,8 @@
 # limitations under the License.
 
 
+ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),adq)
+
 LOCAL_PATH:= $(call my-dir)
 # HAL module implemenation, not prelinked and stored in
 # hw/<COPYPIX_HARDWARE_MODULE_ID>.<ro.board.platform>.so
@@ -26,3 +28,5 @@ LOCAL_MODULE := copybit.adq
 LOCAL_C_INCLUDES += device/geeksphone/one/libgralloc
 LOCAL_CFLAGS += -DCOPYBIT_MSM7K=1
 include $(BUILD_SHARED_LIBRARY)
+
+endif

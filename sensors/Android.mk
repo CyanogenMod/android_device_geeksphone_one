@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),adq)
 
 LOCAL_PATH := $(call my-dir)
 
@@ -24,3 +25,5 @@ LOCAL_SHARED_LIBRARIES := liblog libcutils
 LOCAL_SRC_FILES := bma020.c
 LOCAL_MODULE := sensors.adq
 include $(BUILD_SHARED_LIBRARY)
+
+endif

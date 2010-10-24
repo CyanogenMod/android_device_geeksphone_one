@@ -1,5 +1,7 @@
 # Copyright 2006 The Android Open Source Project
 
+ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),adq)
+
 ## Ugly hack: override default libril
 MODULE.TARGET.SHARED_LIBRARIES.libril :=
 
@@ -45,3 +47,4 @@ LOCAL_LDLIBS += -lpthread
 
 include $(BUILD_STATIC_LIBRARY)
 endif # ANDROID_BIONIC_TRANSITION
+endif # adq
