@@ -1,3 +1,51 @@
+on boot
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+
+# Enable MASS storage on SDCARD
+    write /sys/devices/platform/mass_storage/lun0/file /dev/block/mmcblk0p1
+    write /sys/bus/platform/drivers/msm_sdcc/msm_sdcc.1/polling 1
+
+## Brightness and alerts
+    chown system system /sys/class/i2c-adapter/i2c-0/0-0040/brightness
+    chown system system /sys/class/backlight/msmfb_bl0/brightness
+    chown system system /sys/class/i2c-adapter/i2c-0/0-0040/btn_brightness
+    chown system system /sys/class/i2c-adapter/i2c-0/0-0040/blink
+    chown system system /sys/class/i2c-adapter/i2c-0/0-0040/power_state
+    chown system system /sys/class/i2c-adapter/i2c-0/0-0040/caps_fn_leds
+## Front panel LEDs
+    chown system system /sys/class/leds/white/brightness
+    chown system system /sys/class/leds/red/blink
+    chown system system /sys/class/leds/white/blink
+
+## Bluetooth
+    chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
+    chown bluetooth bluetooth /proc/bluetooth/sleep/proto
+    chown system system /sys/module/sco/parameters/disable_esco
+    chmod 0660 /sys/module/bluetooth_power/parameters/power
+    chmod 0660 /proc/bluetooth/sleep/proto
+    chown bluetooth bluetooth /dev/ttyHS0
+    chown system system /sys/class/rfkill/rfkill0/type
+    chown system system /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /dev/ttyHS0
+    chmod 0660 /dev/ttyHS0
+
+## Wifi RFKill
+    chown wifi wifi /sys/class/rfkill/rfkill1/state
+    chmod 0660 /sys/class/rfkill/rfkill1/state
+
+service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
+    group wifi inet
+    socket wpa_wlan0 dgram 660 wifi wifi
+    disabled
+    oneshot
+
+service dhcpcd /system/bin/dhcpcd -B wlan0
+    disabled
+    oneshot    
+
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
     user bluetooth
     group qcom_oncrpc bluetooth net_bt_admin system
