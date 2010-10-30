@@ -22,7 +22,8 @@ PRODUCT_BRAND := Geeksphone
 
 # This is the list of apps to include in the build
 PRODUCT_PACKAGES := \
-	Gallery
+	Gallery \
+	TSCalibration
 
 # This is the list of libraries to include in the build
 PRODUCT_PACKAGES += \
