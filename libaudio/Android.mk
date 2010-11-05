@@ -34,5 +34,27 @@ endif
 
 include $(BUILD_SHARED_LIBRARY)
 
+LOCAL_PATH := hardware/msm7k/libaudio
+
+include $(CLEAR_VARS)
+
+LOCAL_SRC_FILES:=               \
+    AudioPolicyManager.cpp
+
+LOCAL_SHARED_LIBRARIES := \
+    libcutils \
+    libutils \
+    libmedia
+
+LOCAL_STATIC_LIBRARIES := libaudiopolicybase
+
+LOCAL_MODULE:= libaudiopolicy
+
+ifeq ($(BOARD_HAVE_BLUETOOTH),true)
+  LOCAL_CFLAGS += -DWITH_A2DP
+endif
+
+include $(BUILD_SHARED_LIBRARY)
+
 endif #  adq check
 
