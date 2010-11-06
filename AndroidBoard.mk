@@ -28,77 +28,77 @@ $(file) : $(LOCAL_PATH)/stmpe1601.kl | $(ACP)
 
 file := $(TARGET_OUT)/lib/libril-qc-1.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libril-qc-1.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libril-qc-1.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/liboem_rapi.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/liboem_rapi.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/liboem_rapi.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/liboncrpc.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/liboncrpc.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/liboncrpc.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/libmmgsdilib.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libmmgsdilib.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libmmgsdilib.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/libgsdi_exp.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libgsdi_exp.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libgsdi_exp.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/libgstk_exp.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libgstk_exp.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libgstk_exp.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/libwms.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libwms.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libwms.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/libnv.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libnv.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libnv.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/libwmsts.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libwmsts.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libwmsts.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/libdss.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libdss.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libdss.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/libqmi.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libqmi.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libqmi.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/libsnd.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libsnd.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libsnd.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/libdsm.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libdsm.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libdsm.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/libqueue.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libqueue.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libqueue.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/libcm.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libcm.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libcm.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 ## End of RIL
@@ -106,37 +106,37 @@ $(file) : $(LOCAL_PATH)/proprietary/libcm.so | $(ACP)
 ## camera and openmax
 file := $(TARGET_OUT)/lib/libmm-adspsvc.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libmm-adspsvc.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libmm-adspsvc.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/libmmcamera.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libmmcamera.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libmmcamera.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/libmmcamera_target.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libmmcamera_target.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libmmcamera_target.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/libmmjpeg.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libmmjpeg.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libmmjpeg.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/libOmxH264Dec.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libOmxH264Dec.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libOmxH264Dec.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/libOmxMpeg4Dec.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libOmxMpeg4Dec.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libOmxMpeg4Dec.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_OUT)/lib/libOmxVidEnc.so
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/proprietary/libOmxVidEnc.so | $(ACP)
+$(file) : vendor/geeksphone/one/proprietary/libOmxVidEnc.so | $(ACP)
 	$(transform-prebuilt-to-target)
 
 ## End of camera and openmax
@@ -160,20 +160,4 @@ ALL_PREBUILT += $(file)
 $(file) : $(LOCAL_PATH)/init.qcom.rc | $(ACP)
 	$(transform-prebuilt-to-target)
 
-
-# This will install the file in /system/etc
-#
-
-include $(CLEAR_VARS)
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE := vold.fstab
-LOCAL_SRC_FILES := $(LOCAL_MODULE)
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := init.qcom.bt.sh
-LOCAL_MODULE_TAGS := user
-LOCAL_MODULE_CLASS := ETC
-LOCAL_SRC_FILES := proprietary/$(LOCAL_MODULE)
-include $(BUILD_PREBUILT)
 
