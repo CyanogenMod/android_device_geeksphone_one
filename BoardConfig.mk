@@ -16,7 +16,7 @@ TARGET_ARCH_VARIANT := armv6j
 BOARD_RECOVERY_FONT_INCLUDE_HEADER := ../../device/geeksphone/one/font_7x16.h
 BOARD_RECOVERY_FONT_SIZE := 7x16
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/geeksphone/one/recovery_ui.c
-#TARGET_PREBUILT_RECOVERY_KERNEL := device/geeksphone/one/recovery_kernel
+TARGET_PREBUILT_RECOVERY_KERNEL := device/geeksphone/one/recovery_kernel
 
 BOARD_KERNEL_CMDLINE := mem=32M@0x1A000000 mem=21M@0x1C000000 mem=32M@0x20000000 mem=32M@0x22000000 mem=32M@0x24000000 mem=32M@0x26000000 androidboot.hardware=qcom
 BOARD_KERNEL_BASE := 1A000000
