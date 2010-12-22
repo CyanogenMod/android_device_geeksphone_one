@@ -29,6 +29,11 @@ PRODUCT_PACKAGES := \
 PRODUCT_PACKAGES += \
     sensors.adq \
     lights.adq \
+    copybit.adq \
+    gralloc.adq \
+    libaudio \
+    libaudiopolicy \
+    libcamera \
     libRS \
     librs_jni
 
@@ -65,6 +70,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_COPY_FILES += \
 	device/geeksphone/one/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
 	device/geeksphone/one/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+    device/geeksphone/one/ueventd.qcom.rc:root/ueventd.qct.rc
 	device/geeksphone/one/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
 	device/geeksphone/one/vold.fstab:system/etc/vold.fstab \
 	frameworks/base/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
