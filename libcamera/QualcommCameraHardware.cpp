@@ -366,6 +366,7 @@ void QualcommCameraHardware::initDefaultParameters()
     p.set("max-sharpness", "5");
 
     p.set("zoom-supported", "true");
+    p.set("zoom-ratios", "100,200,300,400,500,600");
     p.set("max-zoom", "9");
 
     if (setParameters(p) != NO_ERROR) {
@@ -1491,6 +1492,29 @@ extern "C" sp<CameraHardwareInterface> openCameraHardware()
     LOGV("openCameraHardware: call createInstance");
     return QualcommCameraHardware::createInstance();
 }
+
+    static CameraInfo sCameraInfo[] = {
+        {
+            CAMERA_FACING_BACK,
+            90,  /* orientation */
+        }
+    };
+
+    extern "C" int HAL_getNumberOfCameras()
+    {
+        return sizeof(sCameraInfo) / sizeof(sCameraInfo[0]);
+    }
+
+    extern "C" void HAL_getCameraInfo(int cameraId, struct CameraInfo* cameraInfo)
+    {
+        memcpy(cameraInfo, &sCameraInfo[cameraId], sizeof(CameraInfo));
+    }
+
+    extern "C" sp<CameraHardwareInterface> HAL_openCameraHardware(int cameraId)
+    {
+        LOGV("openCameraHardware: call createInstance");
+        return QualcommCameraHardware::createInstance();
+    }
 
 wp<QualcommCameraHardware> QualcommCameraHardware::singleton;
 
