@@ -30,7 +30,7 @@
 
 #define BMA_DEVICE "/dev/bma020"
 
-int requested_delay = 0;
+int64_t requested_delay = 0;
 int got_wake = 0;
 int bma020fd = -1;
 
@@ -58,18 +58,18 @@ int temp_loop = 0;
 int temp_aloop = 0; 
 #endif
 
-int data_poll(struct sensors_data_device_t *dev, sensors_data_t* data) {
+int data_poll(struct sensors_poll_device_t *dev, struct sensors_event_t* data, int count) {
     LOGV("data_poll");
     //
-    if (bma020fd < 0) {
-        LOGE("data_poll: invalid file descriptor, fd=%d", bma020fd);
-        return -1;
+    while (!got_wake) {
+		sleep(1);
     }
-
-    if (got_wake) {
-        got_wake = 0;
-        return 0x7FFFFFF;
-    }
+	if (bma020fd < 0) {
+	int fd = open(BMA_DEVICE, O_RDONLY);
+	if(fd < 0)
+		return 0;
+	bma020fd = fd;
+	}
 
     struct  {
         short x, y, z;
@@ -84,7 +84,7 @@ int data_poll(struct sensors_data_device_t *dev, sensors_data_t* data) {
     fds.events = POLLIN;
     fds.revents = 0;
     nr = poll(&fds, 1, 1000);
-    if(nr > 0 && fds.revents == POLLIN) {
+    if(nr > 0 && fds.revents & POLLIN) {
         read(bma020fd,&acceldata,sizeof(acceldata));
         usleep(requested_delay);
 
@@ -134,13 +134,13 @@ int data_poll(struct sensors_data_device_t *dev, sensors_data_t* data) {
 #endif
 
         data->sensor=SENSOR_TYPE_ORIENTATION;
-        data->vector.status=SENSOR_STATUS_ACCURACY_HIGH;
+        data->type=SENSOR_TYPE_ORIENTATION;
         usleep(10000);
 
-        return SENSOR_TYPE_ORIENTATION;
+		LOGV("Returning accel data");
+        return 1;
     } else {
         data->sensor=SENSOR_TYPE_ACCELEROMETER;
-        data->vector.status=SENSOR_STATUS_ACCURACY_HIGH;
 
 #ifdef PRINT_VALUES
         temp_aloop++;
@@ -151,8 +151,10 @@ int data_poll(struct sensors_data_device_t *dev, sensors_data_t* data) {
 #endif
 
         calc_orientation = 1;
+        data->type=SENSOR_TYPE_ACCELEROMETER;
 
-        return SENSOR_TYPE_ACCELEROMETER;
+		LOGV("Returning accel data");
+        return 1;
     }
 }
 
@@ -165,6 +167,15 @@ int bma020_close(struct hw_device_t *dev) {
     }
     return 0;
 }
+
+typedef struct {
+    struct sensors_poll_device_t device; // must be first
+
+    int (*activate)(int handle, int enabled);
+    int (*setDelay)(int handle, int64_t ns);
+    int (*pollEvents)(sensors_event_t* data, int count);
+
+} sensors_poll_context_t;
 
 native_handle_t *open_data_source(struct sensors_control_device_t *dev) {
     LOGV("open_data_source");
@@ -179,21 +190,30 @@ native_handle_t *open_data_source(struct sensors_control_device_t *dev) {
 }
 
 static int close_data_source (struct hw_device_t *dev) {
+	struct sensors_poll_device_t *ctx = (struct sensors_poll_device_t *)dev;
+	if (ctx) {
+		free(ctx);
+	}
+    return bma020_close(dev);
+}
+
+int activate(struct sensors_poll_device_t *dev, int handle, int enabled) {
+    LOGV("activate - %d",enabled);
+	if (enabled) {
+		got_wake = 1;
+	} else {
+		got_wake = 0;
+	}
     return 0;
 }
 
-int activate(struct sensors_control_device_t *dev, int handle, int enabled) {
-    LOGV("activate");
-    return 1;
-}
-
-int set_delay(struct sensors_control_device_t *dev, int32_t ms) {
-    LOGV("set_delay to %u\n",ms);
+int set_delay(struct sensors_poll_device_t *dev, int handle, int64_t ns) {
+    LOGV("set_delay to %u\n",ns);
 
     /* Impose a minimum? // if (requested_delay<50) {
        requested_delay = 50;
        }*/
-    requested_delay=(ms*1000);
+    requested_delay=(ns/1000);
     return 0;
 }
 
@@ -205,8 +225,9 @@ int wake(struct sensors_control_device_t *dev) {
 
 int bma020_open(const struct hw_module_t* module, const char* id, struct hw_device_t** device) {
     LOGV("bma020_open init");
-    if(strcmp(id, SENSORS_HARDWARE_CONTROL)==0) {
-        struct sensors_control_device_t *dev;
+
+        struct sensors_poll_device_t *dev;
+
         dev = malloc(sizeof(*dev));
         memset(dev, 0, sizeof(*dev));
 
@@ -214,36 +235,14 @@ int bma020_open(const struct hw_module_t* module, const char* id, struct hw_devi
         dev->common.version = 0;
         dev->common.module = module;
         dev->common.close = close_data_source;
-        dev->open_data_source = open_data_source;
         dev->activate = activate;
-        dev->set_delay = set_delay;
-        dev->wake = wake;
-
-        *device = &dev->common;
-
-        return 0;
-
-    } else if(strcmp(id, SENSORS_HARDWARE_DATA)==0) {
-        LOGV("bma020_open build device");
-
-        struct sensors_data_device_t *dev;
-
-        dev = malloc(sizeof(*dev));
-        memset(dev, 0, sizeof(*dev));
-        dev->common.tag = HARDWARE_DEVICE_TAG;
-        dev->common.version = 0;
-        dev->common.module = module;
-        dev->common.close = bma020_close;
-        dev->data_open = data_open;
-        dev->data_close = data_close;
+        dev->setDelay = set_delay;
         dev->poll = data_poll;
+
         *device = &dev->common;
 
-        LOGV("bma020_open return clean");
         return 0;
-    }
-    LOGV("bma020_open return negative");
-    return -1;
+
 }
 
 
