@@ -24,7 +24,6 @@
 	<bool name="config_sf_limitedAlpha">true</bool>
 	<integer name="config_lidNavigationAccessibility">1</integer>
 	<bool name="config_batterySdCardAccessibility">true</bool>
-	<bool name="config_hspa_data_distinguishable">true</bool>
 
     <string-array translatable="false" name="config_tether_usb_regexs">
         <item>"usb0"</item>
