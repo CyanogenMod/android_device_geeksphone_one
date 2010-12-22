@@ -1,41 +1,74 @@
+on early-init
+    start hwprops
+
 on boot
-    mkdir /data/misc/wifi 0770 wifi wifi
-    mkdir /data/misc/wifi/sockets 0770 wifi wifi
-    mkdir /data/misc/dhcp 0770 dhcp dhcp
-    mkdir /data/misc/tscal 0770 system system
-    chown dhcp dhcp /data/misc/dhcp
-
-# Enable MASS storage on SDCARD
-    write /sys/devices/platform/mass_storage/lun0/file /dev/block/mmcblk0p1
-    write /sys/bus/platform/drivers/msm_sdcc/msm_sdcc.1/polling 1
-
-## Brightness and alerts
+    #+++AudiPCHuang@FIH, change virtual file for keyboard brightness controlling
+    #chown system system /sys/class/leds/keyboard-backlight/brightness
     chown system system /sys/class/i2c-adapter/i2c-0/0-0040/brightness
+    #---AudiPCHuang@FIH
+    
+    #+++ VincentYSChen @FIH
+    chown system system /sys/devices/platform/DIAG.0/qxdm2sd
+    #--- VincentYSChen @FIH
+    #+++ KennyLin @FIH
+    chmod 777 /sys/devices/platform/DIAG.0/qxdm2sd
+    #--- KennyLin @FIH
+   
+    #+++AudiPCHuang@FIH, change virtual file for lcd brightness controlling
+    #chown system system /sys/class/leds/lcd-backlight/brightness
     chown system system /sys/class/backlight/msmfb_bl0/brightness
+    #---AudiPCHuang@FIH
+
+    #+++AudiPCHuang@FIH, change virtual file for keyboard brightness controlling    
+    #chown system system /sys/class/leds/button-backlight/brightness
     chown system system /sys/class/i2c-adapter/i2c-0/0-0040/btn_brightness
+    #---AudiPCHuang@FIH
+    
+    #+++AudiPCHuang@FIH, virtual file for controlling nLEDs blinking
     chown system system /sys/class/i2c-adapter/i2c-0/0-0040/blink
+    #---AudiPCHuang@FIH
+
+    #+++AudiPCHuang@FIH, virtual file for controlling keypad controller power state
     chown system system /sys/class/i2c-adapter/i2c-0/0-0040/power_state
+    #---AudiPCHuang@FIH
+    
+    #+++AudiPCHuang@FIH, change virtual file for controlling the leds besides QWERTY keypad
     chown system system /sys/class/i2c-adapter/i2c-0/0-0040/caps_fn_leds
-## Front panel LEDs
+    #---AudiPCHuang@FIH
+
     chown system system /sys/class/leds/white/brightness
     chown system system /sys/class/leds/red/blink
+    chown system system /sys/class/leds/green/blink
     chown system system /sys/class/leds/white/blink
 
-## Bluetooth
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
     chown bluetooth bluetooth /proc/bluetooth/sleep/proto
     chown system system /sys/module/sco/parameters/disable_esco
     chmod 0660 /sys/module/bluetooth_power/parameters/power
     chmod 0660 /proc/bluetooth/sleep/proto
     chown bluetooth bluetooth /dev/ttyHS0
+    chmod 0660 /dev/ttyHS0
+    chown wifi wifi /sys/class/rfkill/rfkill1/state
+    chmod 0660 /sys/class/rfkill/rfkill1/state
     chown system system /sys/class/rfkill/rfkill0/type
     chown system system /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /dev/ttyHS0
-    chmod 0660 /dev/ttyHS0
 
-## Wifi RFKill
-    chown wifi wifi /sys/class/rfkill/rfkill1/state
-    chmod 0660 /sys/class/rfkill/rfkill1/state
+    mkdir /data/system 0771 system system
+
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+
+    # allow net_raw to have access to /dev/socket directory
+    chown root net_raw /dev/socket
+    chmod 0775 /dev/socket
+
+service hwprops /sbin/hwprops
+    critical
+	disabled
+	oneshot
 
 service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
     group wifi inet
@@ -46,6 +79,7 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wi
 service dhcpcd /system/bin/dhcpcd -B wlan0
     disabled
     oneshot    
+
 
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
     user bluetooth

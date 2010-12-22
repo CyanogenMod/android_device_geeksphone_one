@@ -150,11 +150,6 @@ $(file) : $(LOCAL_PATH)/stmpe1601.kcm.bin | $(ACP)
 
 # init files for boot.img
 #
-file := $(TARGET_ROOT_OUT)/init.rc
-ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/init.one.rc | $(ACP)
-	$(transform-prebuilt-to-target)
-
 file := $(TARGET_ROOT_OUT)/init.qcom.rc
 ALL_PREBUILT += $(file)
 $(file) : $(LOCAL_PATH)/init.qcom.rc | $(ACP)
