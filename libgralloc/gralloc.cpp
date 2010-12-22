@@ -208,7 +208,7 @@ static int init_pmem_area_locked(private_module_t* m)
         } else {
             size = region.len;
         }*/
-		size = 6<<20;
+		size = 8<<20;
         sAllocator.setSize(size);
 
         void* base = mmap(0, size, 
