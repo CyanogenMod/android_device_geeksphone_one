@@ -20,9 +20,39 @@ $(call inherit-product, device/common/gps/gps_eu.mk)
 DEVICE_PACKAGE_OVERLAYS := device/geeksphone/one/overlay
 PRODUCT_BRAND := Geeksphone
 
+## Overload the default package list, cut down on non-necessary stuff to
+## save space. Update from full.mk on new versions!
+PRODUCT_PACKAGES := \
+    AccountAndSyncSettings \
+    DeskClock \
+    AlarmProvider \
+    Bluetooth \
+    Calculator \
+    Calendar \
+    Camera \
+    CertInstaller \
+    DrmProvider \
+    Email \
+    Gallery \
+    LatinIME \
+    Launcher2 \
+    Mms \
+    Music \
+    Provision \
+    Protips \
+    QuickSearchBox \
+    Settings \
+    Superuser \
+    Sync \
+    SystemUI \
+    Updater \
+    CalendarProvider \
+    SyncProvider
+
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core.mk)
+
 # This is the list of apps to include in the build
 PRODUCT_PACKAGES := \
-	Gallery \
 	TSCalibration
 
 # This is the list of libraries to include in the build
@@ -35,13 +65,17 @@ PRODUCT_PACKAGES += \
     libaudiopolicy \
     libcamera \
     libRS \
-    librs_jni
+    librs_jni \
+    hwprops \
+    libOmxCore
 
 TINY_TOOLBOX:=true
 
 # This is the list of locales included in AOSP builds
 PRODUCT_LOCALES := mdpi ru_RU
 PRODUCT_DEFAULT_LANGUAGE := en_GB
+
+$(call inherit-product, build/target/product/languages_small.mk)
 
 # Enable RingerSwitch
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -58,12 +92,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.clientidbase.am=android-fih \
     ro.com.google.clientidbase.vs=android-fih \
     ro.com.google.clientidbase.gmm=android-fih \
-	ro.com.google.locationfeatures=1 \
-	ro.com.google.networklocation=1 \
+    ro.com.google.locationfeatures=1 \
+    ro.com.google.networklocation=1 \
     ro.com.android.wifi-watchlist=GoogleGuest \
-	ro.setupwizard.mode=OPTIONAL \
-	ro.com.android.dateformat=dd-MM-yyyy \
-	ro.com.android.dataroaming=true 
+    ro.setupwizard.mode=OPTIONAL \
+    keyguard.no_require_sim=true \
+    ro.com.android.dateformat=dd-MM-yyyy \
+    ro.com.android.dataroaming=true 
+
 
 # Configuration
 #
@@ -92,6 +128,5 @@ PRODUCT_COPY_FILES += \
 	vendor/geeksphone/one/proprietary/hci_qcomm_init:system/bin/hci_qcomm_init
 
 
-$(call inherit-product, build/target/product/full.mk)
 PRODUCT_NAME := geeksphone_one
 
