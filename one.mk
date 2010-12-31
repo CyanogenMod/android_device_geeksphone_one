@@ -20,9 +20,11 @@ $(call inherit-product, device/common/gps/gps_eu.mk)
 DEVICE_PACKAGE_OVERLAYS := device/geeksphone/one/overlay
 PRODUCT_BRAND := Geeksphone
 
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core.mk)
+
 ## Overload the default package list, cut down on non-necessary stuff to
 ## save space. Update from full.mk on new versions!
-PRODUCT_PACKAGES := \
+PRODUCT_PACKAGES += \
     AccountAndSyncSettings \
     DeskClock \
     AlarmProvider \
@@ -49,10 +51,9 @@ PRODUCT_PACKAGES := \
     CalendarProvider \
     SyncProvider
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core.mk)
 
 # This is the list of apps to include in the build
-PRODUCT_PACKAGES := \
+PRODUCT_PACKAGES += \
 	TSCalibration
 
 # This is the list of libraries to include in the build
