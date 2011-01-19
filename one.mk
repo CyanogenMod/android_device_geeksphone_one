@@ -63,6 +63,7 @@ PRODUCT_PACKAGES += \
     copybit.adq \
     gralloc.adq \
     gps.adq \
+    libril.adq \
     libaudio \
     libaudiopolicy \
     libcamera \

@@ -2,9 +2,6 @@
 
 ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),adq)
 
-## Ugly hack: override default libril
-MODULE.TARGET.SHARED_LIBRARIES.libril :=
-
 LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
@@ -20,7 +17,9 @@ LOCAL_SHARED_LIBRARIES := \
 
 LOCAL_CFLAGS :=
 
-LOCAL_MODULE:= libril
+LOCAL_MODULE:= libril.adq
+LOCAL_MODULE_STEM := libril
+LOCAL_MODULE_TAGS := optional
 
 LOCAL_LDLIBS += -lpthread
 
