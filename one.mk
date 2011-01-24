@@ -63,7 +63,6 @@ PRODUCT_PACKAGES += \
     copybit.adq \
     gralloc.adq \
     gps.adq \
-    libril.adq \
     libcamera \
     libRS \
     librs_jni \
@@ -105,7 +104,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Configuration
 #
 PRODUCT_COPY_FILES += \
-	device/geeksphone/one/prebuilt/libril.so:system/lib/libril.so \
 	device/geeksphone/one/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
 	device/geeksphone/one/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     device/geeksphone/one/ueventd.qcom.rc:root/ueventd.qct.rc \
