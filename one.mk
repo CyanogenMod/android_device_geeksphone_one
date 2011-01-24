@@ -64,8 +64,6 @@ PRODUCT_PACKAGES += \
     gralloc.adq \
     gps.adq \
     libril.adq \
-    libaudio \
-    libaudiopolicy \
     libcamera \
     libRS \
     librs_jni \
