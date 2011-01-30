@@ -80,6 +80,11 @@ service dhcpcd /system/bin/dhcpcd -B wlan0
     disabled
     oneshot    
 
+service hostapd /system/bin/logwrapper /system/bin/hostapd /data/misc/wifi/hostapd.conf
+    group wifi inet
+    socket wpa_athap0 dgram 660 wifi wifi
+    disabled
+    oneshot
 
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
     user bluetooth

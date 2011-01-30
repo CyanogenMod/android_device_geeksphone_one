@@ -106,6 +106,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_COPY_FILES += \
 	device/geeksphone/one/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
 	device/geeksphone/one/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+	device/geeksphone/one/hostapd.conf:system/etc/wifi/hostapd.conf \
     device/geeksphone/one/ueventd.qcom.rc:root/ueventd.qct.rc \
 	device/geeksphone/one/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
 	device/geeksphone/one/vold.fstab:system/etc/vold.fstab \
@@ -123,6 +124,7 @@ PRODUCT_COPY_FILES += \
 	vendor/geeksphone/one/proprietary/data.patch.hw2_0.bin:system/etc/wifi/fw/data.patch.hw2_0.bin \
 	vendor/geeksphone/one/proprietary/eeprom.bin:system/etc/wifi/fw/eeprom.bin \
 	vendor/geeksphone/one/proprietary/athwlan.bin.z77:system/etc/wifi/fw/athwlan.bin.z77 \
+	vendor/geeksphone/one/proprietary/hostapd:system/bin/hostapd \
 	vendor/geeksphone/one/proprietary/libgps.so:obj/lib/libgps.so \
 	vendor/geeksphone/one/proprietary/libgps.so:system/lib/libgps.so \
 	vendor/geeksphone/one/proprietary/hci_qcomm_init:system/bin/hci_qcomm_init
