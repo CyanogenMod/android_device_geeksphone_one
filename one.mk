@@ -14,47 +14,15 @@
 # limitations under the License.
 #
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, device/common/gps/gps_eu.mk)
 
 DEVICE_PACKAGE_OVERLAYS := device/geeksphone/one/overlay
 PRODUCT_BRAND := Geeksphone
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core.mk)
+$(call inherit-product, build/target/product/small_base.mk)
 
-## Overload the default package list, cut down on non-necessary stuff to
-## save space. Update from full.mk on new versions!
 PRODUCT_PACKAGES += \
-    AccountAndSyncSettings \
-    DeskClock \
-    AlarmProvider \
-    Bluetooth \
-    Calculator \
-    Calendar \
-    Camera \
-    CertInstaller \
-    DrmProvider \
-    Email \
-    Gallery \
-    LatinIME \
-    Launcher2 \
-    Mms \
-    Music \
-    Provision \
-    Protips \
-    QuickSearchBox \
-    Settings \
-    Superuser \
-    Sync \
-    SystemUI \
-    Updater \
-    CalendarProvider \
-    SyncProvider
-
-
-# This is the list of apps to include in the build
-PRODUCT_PACKAGES += \
-	TSCalibration
+    Gallery
 
 # This is the list of libraries to include in the build
 PRODUCT_PACKAGES += \
@@ -71,11 +39,9 @@ PRODUCT_PACKAGES += \
 
 TINY_TOOLBOX:=true
 
-# This is the list of locales included in AOSP builds
-PRODUCT_LOCALES := mdpi ru_RU
+# We want Russian on top of small_languages
+PRODUCT_LOCALES += ru_RU
 PRODUCT_DEFAULT_LANGUAGE := en_GB
-
-$(call inherit-product, build/target/product/languages_small.mk)
 
 # Enable RingerSwitch
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -129,6 +95,7 @@ PRODUCT_COPY_FILES += \
 	vendor/geeksphone/one/proprietary/libgps.so:system/lib/libgps.so \
 	vendor/geeksphone/one/proprietary/hci_qcomm_init:system/bin/hci_qcomm_init
 
-
-PRODUCT_NAME := geeksphone_one
-
+PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
+PRODUCT_NAME := one
+PRODUCT_DEVICE := one
+PRODUCT_MODEL := Geeksphone ONE
