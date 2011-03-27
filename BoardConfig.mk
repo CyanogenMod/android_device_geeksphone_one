@@ -40,8 +40,6 @@ BOARD_USES_GPSSHIM := true
 BOARD_GPS_LIBRARIES := libgps librpc
 BOARD_GPS_BAD_AGPS := true
 
-BOARD_USES_QCOM_LIBRPC := true
-
 BUILD_LIBCAMERA := true
 BOARD_CAMERA_LIBRARIES := libmmcamera libmmcamera-target
 USE_CAMERA_STUB:= false
