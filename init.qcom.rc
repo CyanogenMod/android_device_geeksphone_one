@@ -76,7 +76,7 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wi
     disabled
     oneshot
 
-service dhcpcd /system/bin/dhcpcd -B wlan0
+service dhcpcd_wlan0 /system/bin/dhcpcd -B wlan0
     disabled
     oneshot    
 
