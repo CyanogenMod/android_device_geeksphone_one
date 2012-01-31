@@ -29,3 +29,6 @@ ro.telephony.default_network = 0
 ## Old RIL doesn't replay call rings
 ro.telephony.call_ring.multiple=false
 ro.telephony.call_ring.delay=5000
+
+# Disable ICS rotation animation, it's too slow
+persist.sys.rotationanimation=false
